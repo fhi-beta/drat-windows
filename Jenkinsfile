@@ -3,11 +3,21 @@ pipeline {
 
   stages {
 
-    stage('Commit') {
+    stage('Update') {
       steps {
         sh('''
-          git clone --depth 1 https://github.com/folkehelseinstituttet/drat.git --branch gh-pages
+          git -C C:\Users\raw996\Documents\GitHub\drat pull
           dir
+        ''')
+      }
+    }
+
+    stage('Build') {
+      steps {
+        sh('''
+          C:\Program Files\R\R-4.0.2\bin\Rscript.exe -e 'install.packages("devtools")'
+          C:\Program Files\R\R-4.0.2\bin\Rscript.exe -e 'devtools::install_github("folkehelseinstituttet/drathelper")'
+          C:\Program Files\R\R-4.0.2\bin\Rscript.exe 'drathelper::source_to_binary(packages_to_build = "fhi", drat_repo = "C:/Users/raw996/Documents/GitHub/drat")
         ''')
       }
     }
