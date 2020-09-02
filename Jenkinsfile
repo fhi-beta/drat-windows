@@ -7,8 +7,7 @@ pipeline {
       steps {
         sh('''
           git clone --depth 1 https://github.com/folkehelseinstituttet/drat.git --brach gh-pages
-          pwd
-          ls
+          dir
         ''')
       }
     }
